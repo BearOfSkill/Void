@@ -17,5 +17,4 @@ pluginManagement {
         }
     }
 }
-
 rootProject.name = "Void"
