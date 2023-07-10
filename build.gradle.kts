@@ -7,7 +7,7 @@ plugins {
 }
 
 group = "com.conutik.archloomtemplate"
-version = "1.0.0"
+version = "2.2.0"
 
 // Toolchains:
 java {
@@ -58,8 +58,6 @@ dependencies {
     minecraft("com.mojang:minecraft:1.8.9")
     mappings("de.oceanlabs.mcp:mcp_stable:22-1.8.9")
     forge("net.minecraftforge:forge:1.8.9-11.15.1.2318-1.8.9")
-    implementation("org.java-websocket:Java-WebSocket:1.5.3")
-    implementation("com.google.code.gson:gson:2.10.1")
     // If you don't want mixins, remove these lines
     shadowImpl("org.spongepowered:mixin:0.7.11-SNAPSHOT") {
         isTransitive = false
@@ -80,7 +78,7 @@ tasks.withType(JavaCompile::class) {
 }
 
 tasks.withType(Jar::class) {
-    archiveBaseName.set("examplemod")
+    archiveBaseName.set("Void")
     manifest.attributes.run {
         this["FMLCorePluginContainsFMLMod"] = "true"
         this["ForceLoadAsMod"] = "true"
@@ -91,13 +89,14 @@ tasks.withType(Jar::class) {
 
 
 val remapJar by tasks.named<net.fabricmc.loom.task.RemapJarTask>("remapJar") {
-    archiveClassifier.set("all")
+//    archiveClassifier.set("all")
+// commented out
     from(tasks.shadowJar)
     input.set(tasks.shadowJar.get().archiveFile)
 }
-
 tasks.shadowJar {
-    archiveClassifier.set("all-dev")
+//    archiveClassifier.set("all-dev")
+// commented out
     configurations = listOf(shadowImpl)
     doLast {
         configurations.forEach {
@@ -110,4 +109,3 @@ tasks.shadowJar {
 }
 
 tasks.assemble.get().dependsOn(tasks.remapJar)
-
